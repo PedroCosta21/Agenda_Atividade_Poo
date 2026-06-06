@@ -1,8 +1,8 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AgendaAylaTeste {
 
@@ -10,21 +10,33 @@ public class AgendaAylaTeste {
 
     @Test
     public void testaCadastroContato() {
-        boolean cadastrou = teste.cadastraContato("Pedro Costa", 9, 6);
+
+        boolean cadastrou =
+                teste.cadastraContato("Pedro Costa", 9, 6);
+
         assertTrue(cadastrou);
     }
 
     @Test
     public void testaPesquisaAniversariante() {
+
         teste.cadastraContato("Pedro Costa", 9, 6);
-        Collection<Contato> contatoExiste = teste.pesquisaAniversariantes(9, 6);
-        assertEquals(1, contatoExiste.size());
+
+        Collection<Contato> contatos =
+                teste.pesquisaAniversariantes(9, 6);
+
+        assertEquals(1, contatos.size());
     }
 
     @Test
-    public void testaRemoverContato() {
+    public void testaRemoveContato()
+            throws ContatoInexistenteException {
+
         teste.cadastraContato("Pedro Costa", 9, 6);
-        boolean removeu = teste.removerContato("Pedro Costa");
+
+        boolean removeu =
+                teste.removeContato("Pedro Costa");
+
         assertTrue(removeu);
     }
 }

@@ -1,54 +1,85 @@
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-public class AgendaAyla {
+public class AgendaAyla implements Agenda {
+
     private Map<String, Contato> contatos;
 
     public AgendaAyla() {
-        contatos = new HashMap<>();
+        this.contatos = new HashMap<>();
     }
 
-    public void salvarDados() {
+    @Override
+    public void salvarDados() throws IOException {
         GravadorDeDados gravador = new GravadorDeDados();
         gravador.salvarContatos(contatos);
     }
 
-    public void recuperarDados() {
+    @Override
+    public void recuperarDados() throws IOException {
         GravadorDeDados gravador = new GravadorDeDados();
-        contatos = gravador.recuperarContatos();
+        this.contatos = gravador.recuperarContatos();
     }
 
-    public boolean cadastraContato(String nome, int dia, int mes){
-        if(contatos.containsKey(nome)){
+    @Override
+    public boolean cadastraContato(String nome, int dia, int mes) {
+
+        if (contatos.containsKey(nome)) {
             return false;
-        }else{
-            Contato newContato = new Contato(nome,dia, mes);
-            contatos.put(newContato.getNome(), newContato);
-            return true;
         }
+
+        Contato novoContato = new Contato(nome, dia, mes);
+        contatos.put(nome, novoContato);
+
+        return true;
     }
 
-    public Collection<Contato> pesquisaAniversariantes(int dia, int mes){
+    @Override
+    public Collection<Contato> pesquisaAniversariantes(int dia, int mes) {
+
         Collection<Contato> aniversariantes = new ArrayList<>();
 
-        for(Contato contato : contatos.values()){
-            if(contato.getDiaAniversario() == dia && contato.getMesAniversario() == mes){
-                aniversariantes.add(contato);
+        for (Contato c : contatos.values()) {
+
+            if (c.getDiaAniversario() == dia &&
+                    c.getMesAniversario() == mes) {
+
+                aniversariantes.add(c);
             }
         }
+
         return aniversariantes;
     }
 
-    public boolean removerContato(String nome){
-        if(contatos.containsKey(nome)){
-            contatos.remove(nome);
-            return true;
+    @Override
+    public boolean removeContato(String nome)
+            throws ContatoInexistenteException {
+
+        if (!contatos.containsKey(nome)) {
+            throw new ContatoInexistenteException(
+                    "Contato não encontrado"
+            );
         }
-        return false;
+
+        contatos.remove(nome);
+        return true;
     }
-    public Contato pesquisaContato(String nome) throws ContatoInexistenteException {
-        if(contatos.containsKey(nome)) {
-            return contatos.get(nome);
+
+    // método extra (não está na interface)
+    public Contato pesquisaContato(String nome)
+            throws ContatoInexistenteException {
+
+        Contato contato = contatos.get(nome);
+
+        if (contato == null) {
+            throw new ContatoInexistenteException(
+                    "Contato não encontrado"
+            );
         }
-        throw new ContatoInexistenteException("Contato não encontrado");
+
+        return contato;
     }
 }

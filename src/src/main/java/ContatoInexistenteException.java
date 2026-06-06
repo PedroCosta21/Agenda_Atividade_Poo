@@ -1,5 +1,10 @@
-public class ContatoInexistenteException extends Exception{
-    public ContatoInexistenteException(String msg){
+public class ContatoInexistenteException extends Exception {
+
+    public ContatoInexistenteException() {
+        super();
+    }
+
+    public ContatoInexistenteException(String msg) {
         super(msg);
     }
 }
