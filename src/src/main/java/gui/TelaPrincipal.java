@@ -4,11 +4,13 @@ import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class TelaPrincipal extends JFrame {
     private static AgendaAyla agenda;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
 
         System.setProperty(
                 "jna.library.path",
@@ -55,7 +57,9 @@ public class TelaPrincipal extends JFrame {
         gbc1.insets = new Insets(4, 5, 0, 5);
 
         gbc1.gridy = 0;
-        ImageIcon imLogoAgenda = new ImageIcon("C:\\Users\\usuario\\Downloads\\Agenda_Atividade_Poo\\Imagens\\icons\\logo_agenda.png");
+        ImageIcon imLogoAgenda = new ImageIcon(
+                TelaPrincipal.class.getResource("/icones/logo_agenda.png")
+        );
         Image imagem = imLogoAgenda.getImage().getScaledInstance(
                 25, 25, Image.SCALE_SMOOTH
         );
@@ -150,8 +154,13 @@ public class TelaPrincipal extends JFrame {
 
         jFrame3.setVisible(true);
 
-        mediaPlayer.mediaPlayer().media().play(
-                "C:\\Users\\usuario\\Downloads\\Agenda_Atividade_Poo\\Imagens\\animacao\\videos_capa_3.mp4");
+        var url = TelaPrincipal.class.getResource("/videos/videos_capa_3.mp4");
+
+        System.out.println(url); // teste
+
+        File video = new File(url.toURI());
+
+        mediaPlayer.mediaPlayer().media().play(video.getAbsolutePath());
         mediaPlayer.mediaPlayer().controls().setRepeat(true);
     }
 }
