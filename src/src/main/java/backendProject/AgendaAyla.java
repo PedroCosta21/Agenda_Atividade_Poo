@@ -1,3 +1,5 @@
+package backendProject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,7 +62,7 @@ public class AgendaAyla implements Agenda {
 
         if (!contatos.containsKey(nome)) {
             throw new ContatoInexistenteException(
-                    "Contato não encontrado"
+                    "backendProject.Contato não encontrado"
             );
         }
 
@@ -76,10 +78,13 @@ public class AgendaAyla implements Agenda {
 
         if (contato == null) {
             throw new ContatoInexistenteException(
-                    "Contato não encontrado"
+                    "backendProject.Contato não encontrado"
             );
         }
-
         return contato;
+    }
+
+    public HashMap<String, Contato> getListaContatos(){
+        return (HashMap) contatos;
     }
 }

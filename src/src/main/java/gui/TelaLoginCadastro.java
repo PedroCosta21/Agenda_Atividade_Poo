@@ -10,7 +10,7 @@ public class TelaLoginCadastro {
         JFrame frame1 = new JFrame("Login/Cadastro");
         frame1.setSize(800, 500);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.setLocationRelativeTo(null); // centraliza corretamente
+        frame1.setLocationRelativeTo(null);
         frame1.setResizable(false);
         frame1.setLayout(new BorderLayout());
 

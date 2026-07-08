@@ -1,3 +1,5 @@
+package backendProject;
+
 import java.io.Serializable;
 import java.util.Objects;
 

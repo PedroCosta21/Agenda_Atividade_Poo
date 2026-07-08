@@ -1,3 +1,5 @@
+package backendProject;
+
 public class ContatoInexistenteException extends Exception {
 
     public ContatoInexistenteException() {

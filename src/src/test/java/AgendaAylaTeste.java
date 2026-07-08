@@ -1,3 +1,6 @@
+import backendProject.AgendaAyla;
+import backendProject.Contato;
+import backendProject.ContatoInexistenteException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;

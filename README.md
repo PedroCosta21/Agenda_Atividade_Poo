@@ -1,4 +1,4 @@
-# Agenda Ayla
+# backendProject.Agenda Ayla
 
 Projeto desenvolvido em Java utilizando Programação Orientada a Objetos (POO) para gerenciamento de contatos e aniversários.
 
@@ -27,7 +27,7 @@ Projeto desenvolvido em Java utilizando Programação Orientada a Objetos (POO) 
 
 ### Classes principais
 
-#### `AgendaAyla`
+#### `backendProject.AgendaAyla`
 
 Classe responsável pelo gerenciamento dos contatos.
 
@@ -41,7 +41,7 @@ Principais métodos:
 
 ---
 
-#### `Contato`
+#### `backendProject.Contato`
 
 Representa um contato da agenda.
 
@@ -53,13 +53,13 @@ Atributos:
 
 ---
 
-#### `GravadorDeDados`
+#### `backendProject.GravadorDeDados`
 
 Responsável pela persistência dos dados utilizando serialização em arquivo `.dat`.
 
 ---
 
-#### `ContatoInexistenteException`
+#### `backendProject.ContatoInexistenteException`
 
 Exceção personalizada utilizada para tratamento de erros relacionados a contatos inexistentes.
 
