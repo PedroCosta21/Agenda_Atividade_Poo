@@ -144,6 +144,11 @@ public class TelaPrincipal extends JFrame {
         btAdicionar.setFocusPainted(false);
         btAdicionar.addActionListener(e ->{
             AgendaAyla agenda = new AgendaAyla();
+            try {
+                agenda.recuperarDados();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
             int diaAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o dia do aniversário desse contato: "));
             int mesAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o mês do aniversário desse contato: "));
