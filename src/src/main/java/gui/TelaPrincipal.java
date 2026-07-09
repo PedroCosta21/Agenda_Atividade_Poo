@@ -55,7 +55,7 @@ public class TelaPrincipal extends JFrame {
         gbc1.gridx = 0;
         gbc1.fill = GridBagConstraints.NONE;
         gbc1.anchor = GridBagConstraints.CENTER;
-        gbc1.insets = new Insets(4, 5, 0, 5);
+        gbc1.insets = new Insets(5, 5, 0, 5);
 
         gbc1.gridy = 0;
         ImageIcon imLogoAgenda = new ImageIcon(
@@ -98,47 +98,34 @@ public class TelaPrincipal extends JFrame {
                     "Procurando arquivo em: "
                             + new java.io.File("contatos.dat").getAbsolutePath()
             );
-
             try {
-
                 AgendaAyla agenda = new AgendaAyla();
                 agenda.recuperarDados();
-
                 HashMap<String, Contato> contatos =
                         agenda.getListaContatos();
-
                 System.out.println(
                         "Quantidade de contatos: "
                                 + contatos.size()
                 );
-
                 if (contatos.isEmpty()) {
-
                     JOptionPane.showMessageDialog(
                             null,
                             "Nenhum contato cadastrado."
                     );
-
                     return;
                 }
-
                 StringBuilder mensagem = new StringBuilder();
-
                 for (Contato contato : contatos.values()) {
-
                     mensagem.append(contato)
                             .append("\n");
                 }
-
                 JOptionPane.showMessageDialog(
                         null,
                         mensagem.toString(),
                         "Agenda Completa",
                         JOptionPane.INFORMATION_MESSAGE
                 );
-
             } catch (IOException ex) {
-
                 JOptionPane.showMessageDialog(
                         null,
                         "Erro ao carregar contatos:\n"
@@ -177,6 +164,25 @@ public class TelaPrincipal extends JFrame {
         btRemover.setForeground(Color.WHITE);
         btRemover.setBorderPainted(false);
         btRemover.setFocusPainted(false);
+        btRemover.addActionListener(e ->{
+            AgendaAyla agenda = new AgendaAyla();
+            try {
+                agenda.recuperarDados();
+                String nome = JOptionPane.showInputDialog("Digite o nome do contato:");
+                boolean remocao = agenda.removeContato(nome);
+                if (remocao) {
+                    agenda.salvarDados();
+                    JOptionPane.showMessageDialog(null,"Contato removido com sucesso!");
+                }
+            } catch (ContatoInexistenteException | IOException ex) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        ex.getMessage(),
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
         p2NSul.add(btRemover, gbc2);
 
         gbc2.gridx = 3;
@@ -186,6 +192,20 @@ public class TelaPrincipal extends JFrame {
         btPesquisarAniversariante.setForeground(Color.WHITE);
         btPesquisarAniversariante.setBorderPainted(false);
         btPesquisarAniversariante.setFocusPainted(false);
+        btPesquisarAniversariante.addActionListener(e ->{
+           AgendaAyla agenda = new AgendaAyla();
+           try{
+               agenda.recuperarDados();
+               int diaAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o dia do aniversário desse contato: "));
+               int mesAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o mês do aniversário desse contato: "));
+               for (Contato pesquisaAniversariante : agenda.pesquisaAniversariantes(diaAniversario, mesAniversario)) {
+                   JOptionPane.showMessageDialog(null,pesquisaAniversariante);
+               }
+
+           }catch(Exception ex){
+
+           }
+        });
         p2NSul.add(btPesquisarAniversariante,gbc2);
 
         // Junta tudo verticalmente

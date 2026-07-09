@@ -65,7 +65,6 @@ public class AgendaAyla implements Agenda {
                     "backendProject.Contato não encontrado"
             );
         }
-
         contatos.remove(nome);
         return true;
     }
