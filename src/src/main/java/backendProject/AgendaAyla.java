@@ -1,10 +1,7 @@
 package backendProject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AgendaAyla implements Agenda {
 
