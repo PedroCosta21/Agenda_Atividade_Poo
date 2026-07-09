@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 public class TelaPrincipal extends JFrame {
     private static AgendaAyla agenda;
@@ -91,6 +92,60 @@ public class TelaPrincipal extends JFrame {
         btAgendaCompleta.setForeground(Color.WHITE);
         btAgendaCompleta.setBorderPainted(false);
         btAgendaCompleta.setFocusPainted(false);
+        btAgendaCompleta.addActionListener(e -> {
+
+            System.out.println(
+                    "Procurando arquivo em: "
+                            + new java.io.File("contatos.dat").getAbsolutePath()
+            );
+
+            try {
+
+                AgendaAyla agenda = new AgendaAyla();
+                agenda.recuperarDados();
+
+                HashMap<String, Contato> contatos =
+                        agenda.getListaContatos();
+
+                System.out.println(
+                        "Quantidade de contatos: "
+                                + contatos.size()
+                );
+
+                if (contatos.isEmpty()) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Nenhum contato cadastrado."
+                    );
+
+                    return;
+                }
+
+                StringBuilder mensagem = new StringBuilder();
+
+                for (Contato contato : contatos.values()) {
+
+                    mensagem.append(contato)
+                            .append("\n");
+                }
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        mensagem.toString(),
+                        "Agenda Completa",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } catch (IOException ex) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Erro ao carregar contatos:\n"
+                                + ex.getMessage()
+                );
+            }
+        });
         p2NSul.add(btAgendaCompleta,  gbc2);
 
         gbc2.gridx = 1;
@@ -100,6 +155,19 @@ public class TelaPrincipal extends JFrame {
         btAdicionar.setForeground(Color.WHITE);
         btAdicionar.setBorderPainted(false);
         btAdicionar.setFocusPainted(false);
+        btAdicionar.addActionListener(e ->{
+            AgendaAyla agenda = new AgendaAyla();
+            String nome = JOptionPane.showInputDialog("Digite o nome do contato: ");
+            int diaAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o dia do aniversário desse contato: "));
+            int mesAniversario = Integer.parseInt(JOptionPane.showInputDialog("Digite o mês do aniversário desse contato: "));
+            agenda.cadastraContato(nome, diaAniversario,mesAniversario);
+            try {
+                agenda.salvarDados();
+                JOptionPane.showMessageDialog(null, "Contato adicionado com sucesso!");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         p2NSul.add(btAdicionar, gbc2);
 
         gbc2.gridx = 2;

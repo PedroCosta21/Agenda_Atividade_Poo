@@ -37,9 +37,9 @@ public class Contato implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " - " +
-                diaAniversario + "/" +
-                mesAniversario;
+        return "Nome: "+nome+"\n"+
+        "Dia do aniversário: "+diaAniversario+"\n"+
+        "Mês do aniversário: "+mesAniversario+"\n";
     }
 
     @Override
